@@ -1,0 +1,3 @@
+[submodule "eventz-api"]
+	path = eventz-api
+	url = https://github.com/JoaoLiima/eventz-api

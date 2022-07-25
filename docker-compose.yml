@@ -1,0 +1,40 @@
+version: "3"
+
+services:
+  db:
+    image: mariadb:10.3
+    ports:
+      - 3306:3306
+    networks:
+      - base_network
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: firefly
+      MYSQL_DATABASE: eventz
+
+  eventz-api:
+    image: "node:16"
+    networks:
+      - base_network
+    ports:
+      - 3000:3000
+    command: sh -c "yarn run start:dev"
+    working_dir: /app
+    volumes:
+      - ./eventz-api:/app
+    environment:
+      NODE_ENV: local
+      MYSQL_USER: root
+      MYSQL_PASSWORD: firefly
+      MYSQL_DATABASE: eventz
+      MYSQL_HOST: db
+      MYSQL_PORT: 3306
+    depends_on:
+      - db
+
+networks:
+  base_network:
+
+volumes:
+  db_data:
