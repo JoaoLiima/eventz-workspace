@@ -30,6 +30,7 @@ services:
       MYSQL_DATABASE: eventz
       MYSQL_HOST: db
       MYSQL_PORT: 3306
+      JWT_SECRET: thisshouldbeanenv
     depends_on:
       - db
 
